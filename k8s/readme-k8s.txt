@@ -1,0 +1,1 @@
+├─ k8s/           # Манифесты для Kubernetes (deployment, services, ingress)
