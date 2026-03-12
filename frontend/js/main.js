@@ -1,7 +1,7 @@
 // Статические данные для MVP
 const links = [
   {name: "Telegram", url: "https://t.me/example"},
-  {name: "YouTube", url: "https://youtube.com/example"},
+  {name: "RUTube", url: "https://rutube.ru/example"},
   {name: "Instagram", url: "https://instagram.com/example"}
 ];
 
