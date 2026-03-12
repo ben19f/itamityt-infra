@@ -1,11 +1,11 @@
-# version: "3.9"
+version: "3.3"
 
 services:
 
   frontend:
     build:
       context: ../../
-      dockerfile: dockers/frontend/Dockerfile
+      dockerfile: docker/frontend/Dockerfile
 
     container_name: itamityt_frontend
 
