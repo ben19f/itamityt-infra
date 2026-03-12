@@ -1,0 +1,10 @@
+# version: "3.9"
+
+services:
+
+  itamityt-frontend:
+    build: .
+    container_name: itamityt_frontend
+    ports:
+      - "8081:80"
+    restart: always
