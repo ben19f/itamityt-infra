@@ -23,7 +23,8 @@ jobs:
           key: ${{ secrets.SERVER_KEY }}
           script: |
             cd itamityt
-            git pull
+            
             git switch devfrontend
+            git pull
             cd docker/frontend
             docker compose up -d --build
