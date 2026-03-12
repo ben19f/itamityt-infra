@@ -24,5 +24,6 @@ jobs:
           script: |
             cd itamityt
             git pull
+            git switch devfrontend
             cd docker/frontend
             docker compose up -d --build
