@@ -1,9 +1,8 @@
 const form = document.getElementById("registerForm");
 const messageEl = document.getElementById("message");
 
-// URL твоего бэкенда (через Docker, если фронт в контейнере, можно backend:8100)
-// const API_URL = "http://localhost:8100"; // для локальной разработки
-const API_URL = "/api"; // для Docker сети
+// URL бэкенда через Nginx proxy на /api
+const API_URL = "https://itamityt.ru/api";  
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -11,25 +10,30 @@ form.addEventListener("submit", async (e) => {
 
   const formData = {
     username: form.username.value,
+    email: form.email.value,
     password: form.password.value
   };
 
   try {
     const res = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData)
     });
 
     const data = await res.json();
 
     if (res.ok) {
-      messageEl.textContent = `Пользователь ${data.username} зарегистрирован!`;
+      messageEl.style.color = "green";
+      messageEl.textContent = `Пользователь ${data.username} успешно зарегистрирован!`;
       form.reset();
     } else {
-      messageEl.textContent = data.detail || "Ошибка регистрации";
+      // отображаем ошибки валидации от FastAPI
+      if (data.detail && Array.isArray(data.detail)) {
+        messageEl.textContent = data.detail.map(err => `${err.loc[1]}: ${err.msg}`).join("; ");
+      } else {
+        messageEl.textContent = data.detail || "Ошибка регистрации";
+      }
     }
   } catch (err) {
     console.error(err);
