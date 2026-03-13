@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Мои ссылки</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  max-width:700px;
+  margin:auto;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+li{
+  margin:8px 0;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="topbar">
+  <h2>Мои ссылки</h2>
+  <button id="logoutBtn">Выйти</button>
+</div>
+
+<hr>
+
+<h3>Список ссылок</h3>
+
+<ul id="itemsList"></ul>
+
+<hr>
+
+<h3>Добавить ссылку</h3>
+
+<form id="addItemForm">
+
+<input type="text" name="name" placeholder="Название" required>
+
+<input type="url" name="description" placeholder="https://example.com">
+
+<button type="submit">Добавить</button>
+
+</form>
+
+<p id="message"></p>
+
+<script src="/js/userhome.js"></script>
+
+</body>
+</html>
