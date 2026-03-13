@@ -3,7 +3,7 @@ version: '3.3'
 services:
   web:
     build:
-      context: .  # текущая директория с Dockerfile
+      context: ../../  # текущая директория с Dockerfile
       dockerfile: Dockerfile
     container_name: itamityt_web
     restart: always
