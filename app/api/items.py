@@ -11,12 +11,19 @@ from db.crud_item import (
     delete_item
 )
 
+from api.deps import get_current_user
+from models.user import User
+
 router = APIRouter(prefix="/items", tags=["items"])
 
 
 @router.get("/", response_model=list[Item])
-def read_items(db: Session = Depends(get_db)):
-    return get_items(db)
+def read_items(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
+    return get_items(db, current_user.id)
 
 
 @router.get("/{item_id}", response_model=Item)
@@ -30,8 +37,13 @@ def read_item(item_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=Item)
-def create_new_item(item: ItemCreate, db: Session = Depends(get_db)):
-    return create_item(db, item)
+def create_new_item(
+    item: ItemCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
+    return create_item(db, item, current_user.id)
 
 
 @router.put("/{item_id}", response_model=Item)
