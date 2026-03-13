@@ -1,3 +1,9 @@
+import sys
+import os
+
+# добавляем родительскую директорию в путь
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -11,7 +17,7 @@ from app.models import user, item
 from app.core.config import settings
 
 # sqlalchemy.url = settings.database_url
-target_metadata = Base.metadata
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -29,8 +35,8 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
-
+# target_metadata = None
+target_metadata = Base.metadata
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
