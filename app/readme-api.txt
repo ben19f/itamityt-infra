@@ -37,6 +37,7 @@ uvicorn main:app --reload – сервер стартует, отслежива�
 
 миграция из app
 python -m alembic revision --autogenerate -m "init"
+python -m alembic revision --autogenerate -m "описание правок"
 python -m alembic upgrade head
 
 
