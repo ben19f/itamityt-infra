@@ -80,3 +80,9 @@ PUT	/items/{id}	изменить item
 DELETE	/items/{id}	удалить item
 
 http://127.0.0.1:8000/docs
+
+
+создал юзера {
+  "email": "test@test.com",
+  "password": "123456"
+}
