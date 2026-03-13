@@ -31,3 +31,15 @@ app/
 
 requirements.txt
 Dockerfile
+
+
+uvicorn app.main:app --reload
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+pydantic
+python-jose
+passlib[bcrypt]
+alembic
+python-dotenv
