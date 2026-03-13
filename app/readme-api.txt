@@ -1,48 +1,38 @@
-├─ api/           # Backend API
+Что умеет бекенд на данном этапе
 
-backend/
+Структура проекта готова
 
-app/
+app/main.py – точка входа FastAPI.
 
-    main.py
-    config.py
+app/api/router.py – собирает эндпоинты.
 
-    api/
-        router.py
-        health.py
-        items.py
+app/models/ – модели SQLAlchemy (User, Item).
 
-    core/
-        config.py
-        security.py
+app/db/base.py – общий Base для моделей.
 
-    db/
-        session.py
-        base.py
+app/core/config.py – настройки через Pydantic 2 (DATABASE_URL и другие переменные).
 
-    models/
-        item.py
+.env – хранит переменные окружения (URL базы, секреты, и т.д.).
 
-    schemas/
-        item.py
+Alembic готов к созданию и управлению миграциями.
 
-    services/
-        item_service.py
+База данных подключена
 
-requirements.txt
-Dockerfile
+FastAPI через SQLAlchemy подключается к PostgreSQL.
+
+Миграции Alembic готовы, чтобы создавать таблицы (User, Item) в базе.
+
+API готов к расширению
+
+Есть базовый роутер router.py, health.py для проверки работоспособности.
+
+Подключена структура для JWT (core/security.py) и будущего auth.
+
+Запуск и горячая перезагрузка
+
+uvicorn main:app --reload – сервер стартует, отслеживает изменения в коде и автоматически перезагружается.
 
 
-uvicorn app.main:app --reload
-fastapi
-uvicorn
-sqlalchemy
-psycopg2-binary
-pydantic
-python-jose
-passlib[bcrypt]
-alembic
-python-dotenv
 
 
 миграция из app
@@ -51,4 +41,14 @@ python -m alembic upgrade head
 
 
 запуск fastapi
-uvicorn app.main:app --reload
+uvicorn main:app --reload
+
+Проверка доступности сервера
+
+В браузере или через curl:
+
+curl http://127.0.0.1:8000/health
+
+Продолжаем писать API, добавлять auth, CRUD для пользователей и предметов, подключать фронтенд.
+
+план следующего шага: auth + CRUD + JWT + миграции, чтобы бекенд был полностью рабочий
