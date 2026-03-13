@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+
+  frontend:
+    build:
+      context: ../../
+      dockerfile: docker/frontend/Dockerfile
+
+    container_name: itamityt_frontend
+
+    ports:
+      - "8081:80"
+
+    restart: always

@@ -1,0 +1,48 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f8f8f8;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #4a90e2;
+  color: white;
+  padding: 20px;
+}
+
+.logo {
+  width: 80px;
+  height: auto;
+}
+
+main {
+  padding: 20px;
+}
+
+#links-container a {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s;
+}
+
+#links-container a:hover {
+  background: #e0e0e0;
+}
+
+form input {
+  margin: 5px;
+  padding: 5px;
+  width: 200px;
+}
+
+form button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
