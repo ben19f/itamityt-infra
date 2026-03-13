@@ -43,3 +43,12 @@ python-jose
 passlib[bcrypt]
 alembic
 python-dotenv
+
+
+миграция из app
+python -m alembic revision --autogenerate -m "init"
+python -m alembic upgrade head
+
+
+запуск fastapi
+uvicorn app.main:app --reload
