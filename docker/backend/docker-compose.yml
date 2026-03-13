@@ -3,8 +3,8 @@ version: '3.3'
 services:
   web:
     build:
-      context: .  # текущая директория с Dockerfile
-      dockerfile: Dockerfile
+      context: ../../  # текущая директория с Dockerfile
+      dockerfile: docker/backend/Dockerfile
     container_name: itamityt_web
     restart: always
     env_file:
