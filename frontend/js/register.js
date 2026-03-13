@@ -3,8 +3,7 @@ const messageEl = document.getElementById("message");
 
 // URL твоего бэкенда (через Docker, если фронт в контейнере, можно backend:8100)
 // const API_URL = "http://localhost:8100"; // для локальной разработки
-// const API_URL = "http://backend:8100"; // для Docker сети
-const API_URL = "http://172.21.0.2:8100"; // для vps разработки
+const API_URL = "/api"; // для Docker сети
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
