@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.router import router
+from api.router import router
 
 app = FastAPI(
     title="itamityt API"
