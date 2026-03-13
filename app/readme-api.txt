@@ -86,3 +86,11 @@ http://127.0.0.1:8000/docs
   "email": "test@test.com",
   "password": "123456"
 }
+
+
+Response body
+
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGljZSIsImV4cCI6MTc3MzQxMjE2OH0.KwfIAImCQukfL19mSF3lYnJqmps_s-KQ9VmwTbMpbOY",
+  "token_type": "bearer"
+}
