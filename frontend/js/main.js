@@ -2,14 +2,12 @@ const API_URL = "https://itamityt.ru/api/public";
 
 const searchBtn = document.getElementById("search-btn");
 const searchUsernameInput = document.getElementById("search-username");
-const searchResult = document.getElementById("search-result");
-const lastUsersContainer = document.getElementById("last-users-container");
 const messageEl = document.getElementById("message");
+const lastUsersContainer = document.getElementById("last-users-container");
 
 // Поиск профиля по username
 searchBtn.addEventListener("click", () => {
   const username = searchUsernameInput.value.trim();
-  searchResult.innerHTML = "";
   messageEl.textContent = "";
 
   if (!username) {
@@ -17,25 +15,15 @@ searchBtn.addEventListener("click", () => {
     return;
   }
 
+  // Проверяем, существует ли пользователь через API
   fetch(`${API_URL}/profile/${username}`)
     .then(res => {
-      if (!res.ok) throw new Error(`Пользователь не найден (${res.status})`);
+      if (!res.ok) throw new Error("Пользователь не найден");
       return res.json();
     })
-    .then(items => {
-      if (items.length === 0) {
-        searchResult.textContent = "У пользователя пока нет ссылок";
-        return;
-      }
-      const container = document.createElement("div");
-      items.forEach(item => {
-        const a = document.createElement("a");
-        a.href = item.description;
-        a.textContent = item.name;
-        a.target = "_blank";
-        container.appendChild(a);
-      });
-      searchResult.appendChild(container);
+    .then(() => {
+      // Если пользователь есть, переходим на public_profile.html с query-параметром
+      window.location.href = `public_profile.html?username=${encodeURIComponent(username)}`;
     })
     .catch(err => {
       console.error(err);
@@ -54,6 +42,7 @@ fetch(`${API_URL}/last-users`)
       lastUsersContainer.textContent = "Нет зарегистрированных пользователей";
       return;
     }
+
     users.forEach(user => {
       const card = document.createElement("div");
       card.classList.add("card");
@@ -61,16 +50,24 @@ fetch(`${API_URL}/last-users`)
       h3.textContent = user.username;
       card.appendChild(h3);
 
-      // Ссылки пользователя
+      // Ссылки пользователя (только для отображения)
       if (user.items && user.items.length) {
         user.items.forEach(item => {
+          const p = document.createElement("p");
           const a = document.createElement("a");
           a.href = item.description;
           a.textContent = item.name;
           a.target = "_blank";
-          card.appendChild(a);
+          p.appendChild(a);
+          card.appendChild(p);
         });
       }
+
+      // Клик по карточке — переход на публичный профиль
+      card.addEventListener("click", () => {
+        window.location.href = `public_profile.html?username=${encodeURIComponent(user.username)}`;
+      });
+
       lastUsersContainer.appendChild(card);
     });
   })
