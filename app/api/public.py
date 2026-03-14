@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from db.session import get_db
 from db.crud_user import get_user_by_username
-from db.crud_item import get_item
+from db.crud_item import get_items_by_user_id
 from schemas.item import Item  # схема длget_items_by_user_idя Item
 
 router = APIRouter(prefix="/public", tags=["public"])
