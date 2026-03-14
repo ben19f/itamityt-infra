@@ -4,16 +4,20 @@
   <meta charset="UTF-8">
   <title>Регистрация</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* Минимальный стиль для удобства */
-    .container { max-width: 400px; margin: 50px auto; font-family: sans-serif; }
-    input { width: 100%; padding: 8px; margin: 8px 0; }
-    button { padding: 10px 20px; }
-    p { color: red; }
-  </style>
 </head>
 <body>
-  <div class="container">
+  <header>
+    <div><img src="images/logo.png" alt="И там и тут" class="logo"></div>
+    <ul>
+    <li><a href="https://itamityt.ru/index.html">Главная</a></li>
+    <il><a href="https://itamityt.ru/login.html">Вход</a></li>
+    <li><a href="https://itamityt.ru/register.html">Регистрация</a></li>
+    <li><a href="https://itamityt.ru/profile.html">Админка профиля</a></li>
+    </ul>
+  </header>
+  
+  <main>
+<div class="container">
     <h2>Регистрация</h2>
     <form id="registerForm">
       <input type="text" name="username" placeholder="Имя пользователя" required /><br/>
@@ -23,7 +27,10 @@
     </form>
     <p id="message"></p>
   </div>
-
+  </main>
+ <footer>
+    <p>© 2026 itamityt.ru</p>
+  </footer>
   <script src="js/register.js"></script>
 </body>
 </html>

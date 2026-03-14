@@ -3,30 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Мои ссылки</title>
-
-<style>
-body{
-  font-family:sans-serif;
-  max-width:700px;
-  margin:auto;
-}
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-li{
-  margin:8px 0;
-}
-</style>
-
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
-<div class="topbar">
+<header>
+  <div><img src="images/logo.png" alt="И там и тут" class="logo"></div>
+  <ul>
+    <li><a href="https://itamityt.ru/index.html">Главная</a></li>
+    <il><a href="https://itamityt.ru/login.html">Вход</a></li>
+    <li><a href="https://itamityt.ru/register.html">Регистрация</a></li>
+    <li><a href="https://itamityt.ru/profile.html">Админка профиля</a></li>
+    </ul>
+  </header>
+<main>
+  <div class="topbar">
   <h2>Мои ссылки</h2>
   <button id="logoutBtn">Выйти</button>
 </div>
@@ -52,7 +43,12 @@ li{
 </form>
 
 <p id="message"></p>
+</main>
 
+
+<footer>
+    <p>© 2026 itamityt.ru</p>
+  </footer>
 <script src="/js/profile.js"></script>
 
 </body>

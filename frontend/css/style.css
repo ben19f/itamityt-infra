@@ -17,9 +17,7 @@ header {
   height: auto;
 }
 
-main {
-  padding: 20px;
-}
+
 
 #links-container a {
   display: block;
@@ -45,4 +43,27 @@ form input {
 form button {
   padding: 5px 10px;
   cursor: pointer;
+}
+
+ /* Минимальный стиль для удобства
+    .container { max-width: 400px; margin: 50px auto; font-family: sans-serif; }
+    input { width: 100%; padding: 8px; margin: 8px 0; }
+    button { padding: 10px 20px; }
+    p { color: red; } */
+
+
+    /* body{
+  font-family:sans-serif;
+  max-width:700px;
+  margin:auto;
+} */
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+li{
+  margin:8px 0;
 }
