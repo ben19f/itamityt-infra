@@ -1,69 +1,78 @@
+/* Свойства для всей страницы */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: #f8f8f8;
-  margin: 0;
-  padding: 0;
+  min-width: 320px;
+  background-color: var(--white);
+  font-family: 'OpenSans', Arial, sans-serif;
 }
 
-header {
-  background: #4a90e2;
-  color: white;
-  padding: 20px;
+button,
+input {
+  font: inherit;
 }
 
-.logo {
-  width: 80px;
+img {
+  max-width: 100%;
   height: auto;
 }
 
-
-
-#links-container a {
-  display: block;
-  margin: 10px 0;
-  padding: 10px;
-  background: #fff;
-  border-radius: 5px;
+a {
   text-decoration: none;
-  color: #333;
-  transition: background 0.2s;
+  color: inherit;
 }
 
-#links-container a:hover {
-  background: #e0e0e0;
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-form input {
-  margin: 5px;
-  padding: 5px;
-  width: 200px;
+
+
+h1,
+h2,
+h3,
+p {
+  padding: 0;
+  margin: 0;
 }
 
-form button {
-  padding: 5px 10px;
-  cursor: pointer;
+:root {
+  --white: #fff;
+  --black: #000;
+  --pistacho: #bedbaf;
+  --light-pistacho: #d4fabf;
+  --dark-green: #1f505c;
+  --green: #47868b;
+  --light-green: #80c691;
 }
 
- /* Минимальный стиль для удобства
-    .container { max-width: 400px; margin: 50px auto; font-family: sans-serif; }
-    input { width: 100%; padding: 8px; margin: 8px 0; }
-    button { padding: 10px 20px; }
-    p { color: red; } */
+
+.container {
+  max-width: 750px;
+
+  padding: 15px 30px;
+  margin: 0 auto;
+}
 
 
-    /* body{
-  font-family:sans-serif;
-  max-width:700px;
-  margin:auto;
+
+/* * {
+  overflow: hidden;
 } */
 
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-li{
-  margin:8px 0;
+/* Обнуляю дефолтные значения фокуса */
+button:focus,
+a:focus {
+  outline: none;
+  color: none;
 }
