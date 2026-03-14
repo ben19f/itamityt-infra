@@ -3,7 +3,7 @@ name: Deploy Frontend
 on:
   push:
     branches:
-      - devfrontend
+      - dev
 
 jobs:
 
@@ -24,7 +24,7 @@ jobs:
           script: |
             cd itamityt
             
-            git switch devfrontend
+            git switch dev
             git pull
             cd docker/frontend
             docker-compose up -d --build
