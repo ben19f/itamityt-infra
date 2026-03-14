@@ -40,3 +40,7 @@ def delete_item(db: Session, db_item: Item):
     db.commit()
     return {"ok": True}
 
+
+# crud_item.py
+def get_items_by_user_id(db: Session, user_id: int):
+    return db.query(Item).filter(Item.owner_id == user_id).all()
