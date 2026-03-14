@@ -8,6 +8,9 @@ def get_items(db: Session, owner_id: int):
     return db.query(Item).filter(Item.owner_id == owner_id).all()
 
 
+
+
+
 # Получить конкретный элемент по id и владельцу
 def get_item(db: Session, item_id: int, owner_id: int):
     return db.query(Item).filter(Item.id == item_id, Item.owner_id == owner_id).first()
@@ -36,3 +39,4 @@ def delete_item(db: Session, db_item: Item):
     db.delete(db_item)
     db.commit()
     return {"ok": True}
+
