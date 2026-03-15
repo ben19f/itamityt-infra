@@ -12,6 +12,7 @@ from models.user import User
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
+
 def hash_password(password: str):
     return pwd_context.hash(password)
 
@@ -26,16 +27,15 @@ def create_access_token(data: dict):
     return encoded_jwt
 
 async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)) -> User:
-    from jose import jwt, JWTError
     try:
         payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
         email: str = payload.get("sub")
-        if not email:
-            raise HTTPException(status_code=401, detail="Invalid authentication credentials")
-    except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+        if email is None:
+            raise HTTPException(status_code=401, detail="Invalid authentication")
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid authentication")
 
-    user = await get_user_by_email(db, email)  # убедись, что get_user_by_email стал async
+    user = await get_user_by_email(db, email)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
