@@ -77,10 +77,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from db.deps import get_db
-from crud.crud_item import create_item, get_all_items, get_items_by_user, delete_item
+from db.crud_item import create_item, get_all_items, get_items_by_user, delete_item
+
 from schemas.item import ItemCreate, Item
 
-router = APIRouter()
+# router = APIRouter()
+router = APIRouter(prefix="/items", tags=["items"])
+
 
 @router.get("/items/", response_model=list[Item])
 async def read_items(db: AsyncSession = Depends(get_db)):
