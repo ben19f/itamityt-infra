@@ -19,10 +19,7 @@ async def read_items(db: AsyncSession = Depends(get_db)):
     items = await get_all_items(db)
     return items
 
-# @router.post("/", response_model=Item)
-# async def add_item(item: ItemCreate, db: AsyncSession = Depends(get_db)):
-#     new_item = await create_item(db, item.name, item.description)
-#     return new_item
+
 
 @router.post("/items/", response_model=Item)
 async def add_item(item: ItemCreate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
