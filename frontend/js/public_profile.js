@@ -24,14 +24,19 @@ if (!username) {
         return;
       }
       items.forEach(item => {
-        const p = document.createElement("p");
-        const a = document.createElement("a");
-        a.href = item.description;
-        a.textContent = item.name;
-        a.target = "_blank";
-        p.appendChild(a);
-        linksContainer.appendChild(p);
-      });
+  const p = document.createElement("p");
+
+  const redirectUrl = `http://127.0.0.1:8000/r/${item.link_id}`;
+
+  const a = document.createElement("a");
+  a.href = redirectUrl;
+  a.textContent = item.name;
+  a.target = "_blank";
+
+  p.appendChild(a);
+  linksContainer.appendChild(p);
+});
+
     })
     .catch(err => {
       console.error(err);

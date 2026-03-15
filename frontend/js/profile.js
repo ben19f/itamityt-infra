@@ -25,17 +25,18 @@ async function loadItems() {
   list.innerHTML = "";
 
   items.forEach(item => {
+  const li = document.createElement("li");
 
-    const li = document.createElement("li");
+  // формируем ссылку через редирект
+  const redirectUrl = `http://127.0.0.1:8000/r/${item.link_id}`; // <- сюда вставляем link_id
 
-    li.innerHTML = `
-      <a href="${item.description}" target="_blank">${item.name}</a>
-      <button onclick="deleteItem(${item.id})">Удалить</button>
-    `;
+  li.innerHTML = `
+    <a href="${redirectUrl}" target="_blank">${item.name}</a>
+    <button onclick="deleteItem(${item.id})">Удалить</button>
+  `;
 
-    list.appendChild(li);
-
-  });
+  list.appendChild(li);
+});
 
 }
 
