@@ -69,3 +69,11 @@ async def delete_item(db: AsyncSession, item_id: int):
         await db.delete(item)
         await db.commit()
     return item
+
+
+
+# db/crud_item.py
+async def get_item_by_id(db: AsyncSession, item_id: int):
+    result = await db.execute(select(Item).filter_by(id=item_id))
+    return result.scalar()
+
