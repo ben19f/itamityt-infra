@@ -1,36 +1,77 @@
-// Статические данные для MVP
-const links = [
-  {name: "Telegram", url: "https://t.me/example"},
-  {name: "RUTube", url: "https://rutube.ru/example"},
-  {name: "Instagram", url: "https://instagram.com/example"}
-];
+const API_URL = "https://itamityt.ru/api/public";
 
-// Функция отображения ссылок на index.html
-function renderLinks() {
-  const container = document.getElementById('links-container');
-  if (!container) return;
+const searchBtn = document.getElementById("search-btn");
+const searchUsernameInput = document.getElementById("search-username");
+const messageEl = document.getElementById("message");
+const lastUsersContainer = document.getElementById("last-users-container");
 
-  container.innerHTML = '';
-  links.forEach(link => {
-    const a = document.createElement('a');
-    a.href = link.url;
-    a.target = '_blank';
-    a.textContent = link.name;
-    container.appendChild(a);
+// Поиск профиля по username
+searchBtn.addEventListener("click", () => {
+  const username = searchUsernameInput.value.trim();
+  messageEl.textContent = "";
+
+  if (!username) {
+    messageEl.textContent = "Введите username";
+    return;
+  }
+
+  // Проверяем, существует ли пользователь через API
+  fetch(`${API_URL}/profile/${username}`)
+    .then(res => {
+      if (!res.ok) throw new Error("Пользователь не найден");
+      return res.json();
+    })
+    .then(() => {
+      // Если пользователь есть, переходим на public_profile.html с query-параметром
+      window.location.href = `public_profile.html?username=${encodeURIComponent(username)}`;
+    })
+    .catch(err => {
+      console.error(err);
+      messageEl.textContent = err.message;
+    });
+});
+
+// Загрузка последних зарегистрированных пользователей
+fetch(`${API_URL}/last-users`)
+  .then(res => {
+    if (!res.ok) throw new Error("Не удалось загрузить последних пользователей");
+    return res.json();
+  })
+  .then(users => {
+    if (!users.length) {
+      lastUsersContainer.textContent = "Нет зарегистрированных пользователей";
+      return;
+    }
+
+    users.forEach(user => {
+      const card = document.createElement("div");
+      card.classList.add("card");
+      const h3 = document.createElement("h3");
+      h3.textContent = user.username;
+      card.appendChild(h3);
+
+      // Ссылки пользователя (только для отображения)
+      if (user.items && user.items.length) {
+        user.items.forEach(item => {
+          const p = document.createElement("p");
+          const a = document.createElement("a");
+          a.href = item.description;
+          a.textContent = item.name;
+          a.target = "_blank";
+          p.appendChild(a);
+          card.appendChild(p);
+        });
+      }
+
+      // Клик по карточке — переход на публичный профиль
+      card.addEventListener("click", () => {
+        window.location.href = `public_profile.html?username=${encodeURIComponent(user.username)}`;
+      });
+
+      lastUsersContainer.appendChild(card);
+    });
+  })
+  .catch(err => {
+    console.error(err);
+    lastUsersContainer.textContent = "Не удалось загрузить последних пользователей";
   });
-}
-
-renderLinks();
-
-// Форма добавления ссылок на admin.html
-const form = document.getElementById('add-link-form');
-if (form) {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('link-name').value;
-    const url = document.getElementById('link-url').value;
-    links.push({name, url});
-    document.getElementById('links-list').innerHTML += `<li>${name} - <a href="${url}" target="_blank">${url}</a></li>`;
-    form.reset();
-  });
-}
