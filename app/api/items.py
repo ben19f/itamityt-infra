@@ -5,6 +5,7 @@ from db.deps import get_db
 from db.crud_item import create_item, get_all_items, get_items_by_user, delete_item
 
 from schemas.item import ItemCreate, Item
+from core.security import get_current_user  # если есть функция для current_user
 
 # router = APIRouter()
 router = APIRouter(prefix="/items", tags=["items"])
@@ -16,10 +17,21 @@ async def read_items(db: AsyncSession = Depends(get_db)):
     items = await get_all_items(db)
     return items
 
-@router.post("/", response_model=Item)
-async def add_item(item: ItemCreate, db: AsyncSession = Depends(get_db)):
-    new_item = await create_item(db, item.name, item.description)
+# @router.post("/", response_model=Item)
+# async def add_item(item: ItemCreate, db: AsyncSession = Depends(get_db)):
+#     new_item = await create_item(db, item.name, item.description)
+#     return new_item
+
+@router.post("/items/", response_model=Item)
+async def add_item(item: ItemCreate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+    new_item = await create_item(
+        db,
+        item.name,
+        item.description,
+        owner_user_id=current_user.id  # <-- вот тут
+    )
     return new_item
+
 
 @router.get("/profile/{user_id}", response_model=list[Item])
 async def read_user_items(user_id: int, db: AsyncSession = Depends(get_db)):
