@@ -10,12 +10,13 @@ from schemas.item import ItemCreate, Item
 router = APIRouter(prefix="/items", tags=["items"])
 
 
-@router.get("/items/", response_model=list[Item])
+
+@router.get("/", response_model=list[Item])
 async def read_items(db: AsyncSession = Depends(get_db)):
     items = await get_all_items(db)
     return items
 
-@router.post("/items/", response_model=Item)
+@router.post("/", response_model=Item)
 async def add_item(item: ItemCreate, db: AsyncSession = Depends(get_db)):
     new_item = await create_item(db, item.name, item.description)
     return new_item
@@ -25,7 +26,7 @@ async def read_user_items(user_id: int, db: AsyncSession = Depends(get_db)):
     items = await get_items_by_user(db, user_id)
     return items
 
-@router.delete("/items/{item_id}")
+@router.delete("/{item_id}")
 async def remove_item(item_id: int, db: AsyncSession = Depends(get_db)):
     item = await delete_item(db, item_id)
     if not item:

@@ -1,13 +1,28 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
+
 from models.user import User
 from schemas.user import UserCreate
 
 
-def get_user_by_email(db: Session, email: str):
-    return db.query(User).filter(User.email == email).first()
+async def get_user_by_email(db: AsyncSession, email: str):
+    result = await db.execute(select(User).filter(User.email == email))
+    return result.scalar()
 
 
-def create_user(db: Session, user: UserCreate, hashed_password: str):
+async def get_user_by_username(db: AsyncSession, username: str):
+    result = await db.execute(select(User).filter(User.username == username))
+    return result.scalar()
+
+
+async def get_last_users(db: AsyncSession, limit: int = 3):
+    result = await db.execute(
+        select(User).order_by(User.id.desc()).limit(limit)
+    )
+    return result.scalars().all()
+
+
+async def create_user(db: AsyncSession, user: UserCreate, hashed_password: str):
 
     db_user = User(
         email=user.email,
@@ -16,14 +31,7 @@ def create_user(db: Session, user: UserCreate, hashed_password: str):
     )
 
     db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
+    await db.commit()
+    await db.refresh(db_user)
 
     return db_user
-
-def get_user_by_username(db: Session, username: str):
-    return db.query(User).filter(User.username == username).first()
-
-
-def get_last_users(db: Session, limit: int = 3):
-    return db.query(User).order_by(User.id.desc()).limit(limit).all()
