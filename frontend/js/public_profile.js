@@ -1,4 +1,5 @@
-const API_URL = "https://itamityt.ru/api/public";
+const API_URL = "https://itytitam.ru/api/public";
+const REDIRECT_URL = "https://itytitam.ru/rserv";
 
 const linksContainer = document.getElementById("links-container");
 const messageEl = document.getElementById("message");
@@ -24,19 +25,15 @@ if (!username) {
         return;
       }
       items.forEach(item => {
-  const p = document.createElement("p");
-
-  const redirectUrl = `http://127.0.0.1:8000/r/${item.link_id}`;
-
-  const a = document.createElement("a");
-  a.href = redirectUrl;
-  a.textContent = item.name;
-  a.target = "_blank";
-
-  p.appendChild(a);
-  linksContainer.appendChild(p);
-});
-
+        const p = document.createElement("p");
+        const redirectUrl = `${REDIRECT_URL}/${item.link_id}`;
+        const a = document.createElement("a");
+        a.href = redirectUrl;
+        a.textContent = item.name;
+        a.target = "_blank";
+        p.appendChild(a);
+        linksContainer.appendChild(p);
+      });
     })
     .catch(err => {
       console.error(err);

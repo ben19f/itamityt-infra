@@ -1,4 +1,5 @@
-const API_URL = "https://itamityt.ru/api/public";
+const API_URL = "https://itytitam.ru/api/public";
+const REDIRECT_URL = "https://itytitam.ru/rserv";
 
 const searchBtn = document.getElementById("search-btn");
 const searchUsernameInput = document.getElementById("search-username");
@@ -15,14 +16,12 @@ searchBtn.addEventListener("click", () => {
     return;
   }
 
-  // Проверяем, существует ли пользователь через API
   fetch(`${API_URL}/profile/${username}`)
     .then(res => {
       if (!res.ok) throw new Error("Пользователь не найден");
       return res.json();
     })
     .then(() => {
-      // Если пользователь есть, переходим на public_profile.html с query-параметром
       window.location.href = `public_profile.html?username=${encodeURIComponent(username)}`;
     })
     .catch(err => {
@@ -50,12 +49,12 @@ fetch(`${API_URL}/last-users`)
       h3.textContent = user.username;
       card.appendChild(h3);
 
-      // Ссылки пользователя (только для отображения)
       if (user.items && user.items.length) {
         user.items.forEach(item => {
           const p = document.createElement("p");
+          const redirectUrl = `${REDIRECT_URL}/${item.link_id}`;
           const a = document.createElement("a");
-          a.href = item.description;
+          a.href = redirectUrl;
           a.textContent = item.name;
           a.target = "_blank";
           p.appendChild(a);
@@ -63,7 +62,6 @@ fetch(`${API_URL}/last-users`)
         });
       }
 
-      // Клик по карточке — переход на публичный профиль
       card.addEventListener("click", () => {
         window.location.href = `public_profile.html?username=${encodeURIComponent(user.username)}`;
       });
