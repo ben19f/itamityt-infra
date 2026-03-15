@@ -1,21 +1,28 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from db.deps import get_db
 from db.crud_item import create_item, get_all_items, get_items_by_user, delete_item
 from schemas.item import ItemCreate, Item
 from models.user import User
-from core.security import get_current_user
+from core.security import get_current_user  # функция для получения текущего пользователя
 
 router = APIRouter(prefix="/items", tags=["items"])
 
 
-@router.get("", response_model=list[Item])
+# -------------------------------
+# Получить все items
+# -------------------------------
+@router.get("/", response_model=list[Item])
 async def read_items(db: AsyncSession = Depends(get_db)):
     items = await get_all_items(db)
     return items
 
 
-@router.post("", response_model=Item)
+# -------------------------------
+# Добавить новый item
+# -------------------------------
+@router.post("/", response_model=Item)
 async def add_item(
     item: ItemCreate,
     db: AsyncSession = Depends(get_db),
@@ -33,12 +40,18 @@ async def add_item(
     return new_item
 
 
+# -------------------------------
+# Получить все items конкретного пользователя
+# -------------------------------
 @router.get("/profile/{user_id}", response_model=list[Item])
 async def read_user_items(user_id: int, db: AsyncSession = Depends(get_db)):
     items = await get_items_by_user(db, user_id)
     return items
 
 
+# -------------------------------
+# Удалить item по id
+# -------------------------------
 @router.delete("/{item_id}")
 async def remove_item(item_id: int, db: AsyncSession = Depends(get_db)):
     item = await delete_item(db, item_id)
