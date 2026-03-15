@@ -11,12 +11,12 @@ router = APIRouter(prefix="/public", tags=["public"])
 @router.get("/profile/{username}")
 async def public_profile(username: str, db: AsyncSession = Depends(get_db)):
 
-    user = await get_user_by_username(db, username)
+    user = get_user_by_username(db, username)
 
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    items = await get_items_by_user(db, user.id)
+    items = get_items_by_user(db, user.id)
 
     return items
 
@@ -24,13 +24,13 @@ async def public_profile(username: str, db: AsyncSession = Depends(get_db)):
 @router.get("/last-users")
 async def last_users(db: AsyncSession = Depends(get_db)):
 
-    users = await get_last_users(db, limit=3)
+    users = get_last_users(db, limit=3)
 
     result = []
 
     for user in users:
 
-        items = await get_items_by_user(db, user.id)
+        items = get_items_by_user(db, user.id)
 
         result.append({
             "username": user.username,
