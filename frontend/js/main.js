@@ -1,5 +1,5 @@
-const API_URL = "https://itytitam.ru/api/public";
-const REDIRECT_URL = "https://itytitam.ru/rserv";
+const API_URL = "https://itamityt.ru/api/public";
+const REDIRECT_URL = "https://itamityt.ru/rserv";
 
 const searchBtn = document.getElementById("search-btn");
 const searchUsernameInput = document.getElementById("search-username");

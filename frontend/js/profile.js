@@ -1,5 +1,5 @@
-const API_URL = "https://itytitam.ru/api";
-const REDIRECT_URL = "https://itytitam.ru/rserv";
+const API_URL = "https://itamityt.ru/api";
+const REDIRECT_URL = "https://itamityt.ru/rserv";
 
 const token = localStorage.getItem("token");
 
