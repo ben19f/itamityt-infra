@@ -21,13 +21,29 @@ async def read_items(db: AsyncSession = Depends(get_db)):
 
 
 
+# @router.post("/items/", response_model=Item)
+# async def add_item(item: ItemCreate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+#     new_item = await create_item(
+#         db,
+#         item.name,
+#         item.description,
+#         owner_user_id=current_user.id  # <-- вот тут
+#     )
+#     return new_item
 @router.post("/items/", response_model=Item)
-async def add_item(item: ItemCreate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+async def add_item(
+    item: ItemCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
     new_item = await create_item(
         db,
         item.name,
         item.description,
-        owner_user_id=current_user.id  # <-- вот тут
+        owner_user_id=current_user.id
     )
     return new_item
 

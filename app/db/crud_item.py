@@ -9,7 +9,29 @@ def generate_link_id(length=8):
     chars = string.ascii_letters + string.digits
     return ''.join(random.choice(chars) for _ in range(length))
 
-async def create_item(db: AsyncSession, name: str, description: str, owner_user_id: int = None):
+# async def create_item(db: AsyncSession, name: str, description: str, owner_user_id: int = None):
+#     # Генерация уникального link_id
+#     while True:
+#         link_id = generate_link_id()
+#         existing = await db.execute(select(Item).filter_by(link_id=link_id))
+#         if not existing.scalar():
+#             break
+#
+#     db_item = Item(
+#         name=name,
+#         description=description,
+#         link_id=link_id,
+#         owner_user_id=owner_user_id
+#     )
+#     db.add(db_item)
+#     await db.commit()
+#     await db.refresh(db_item)
+#     return db_item
+async def create_item(db: AsyncSession, name: str, description: str, owner_user_id: int):
+    """Создаёт Item и привязывает к пользователю"""
+    if owner_user_id is None:
+        raise ValueError("owner_user_id must be provided")
+
     # Генерация уникального link_id
     while True:
         link_id = generate_link_id()
