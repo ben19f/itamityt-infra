@@ -48,6 +48,18 @@ async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     return {"id": db_user.id, "username": db_user.username, "email": db_user.email}
 
 
+@router.delete("/delete/me", status_code=204)
+async def delete_me(
+    current_user = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db)
+):
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    await delete_user_by_id(db, current_user.id)
+    return
+
+
 @router.delete("/delete/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(User).filter(User.id == user_id))
@@ -60,13 +72,3 @@ async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)):
 
 
 
-@router.delete("/delete/me", status_code=204)
-async def delete_me(
-    current_user = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db)
-):
-    if not current_user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
-
-    await delete_user_by_id(db, current_user.id)
-    return
