@@ -57,7 +57,7 @@ async def create_item(db: AsyncSession, name: str, description: str, owner_user_
     try:
         async with httpx.AsyncClient() as client:
             await client.post(
-                "http://redirect:8200/links",
+                "https://itamityt.ru/rserv/links",
                 json={
                     "link_id": db_item.link_id,
                     "original_url": db_item.description,
