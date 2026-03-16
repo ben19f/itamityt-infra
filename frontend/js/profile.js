@@ -85,5 +85,27 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
   window.location.href = "/login.html";
 });
 
+// del
+document.getElementById("deleteAccountBtn").addEventListener("click", async () => {
+  if (!confirm("Вы уверены, что хотите удалить свой аккаунт? Все ссылки будут удалены!")) return;
+
+  const res = await fetch(`${API_URL}/users/delete/me`, {  // смотри ниже про /me
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (res.ok) {
+    alert("Аккаунт удален");
+    localStorage.removeItem("token");
+    window.location.href = "/index.html";
+  } else {
+    const data = await res.json();
+    alert("Ошибка удаления: " + (data.detail || res.status));
+  }
+});
+
+
 // загрузка при открытии страницы
 loadItems();

@@ -33,7 +33,7 @@ form.addEventListener("submit", async (e) => {
       messageEl.textContent = "Успешный вход";
 
       // редирект
-      window.location.href = "/profile.html";
+      window.location.href = "/userhome.html";
 
     } else {
 
