@@ -55,3 +55,12 @@ async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)):
 
     await db.delete(user)
     await db.commit()
+
+@router.delete("/delete/me")
+async def delete_current_user(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db)
+):
+    await db.delete(current_user)
+    await db.commit()
+    return {"detail": "User deleted"}
