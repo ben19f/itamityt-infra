@@ -21,10 +21,17 @@ def verify_password(password: str, hashed: str):
 
 def create_access_token(data: dict):
     to_encode = data.copy()
+
+    # кладем email (или username) в sub, чтобы get_current_user его мог прочитать
+    if "sub" not in to_encode:
+        to_encode["sub"] = data.get("email")  # или data.get("username")
+
     expire = datetime.utcnow() + timedelta(minutes=settings.access_token_expire_minutes)
     to_encode.update({"exp": expire})
+
     encoded_jwt = jwt.encode(to_encode, settings.secret_key, algorithm=settings.algorithm)
     return encoded_jwt
+
 
 async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)) -> User:
     try:
