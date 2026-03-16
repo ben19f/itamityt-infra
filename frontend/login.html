@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>страница входа</title>
+  <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+  <header class="container header">
+  <div><img src="images/logo.png" alt="И там и тут" class="logo"></div>
+  <ul class="menu-list">
+    <li class="menu-top_item"><a href="https://itamityt.ru/index.html">Главная</a></li>
+    <li class="menu-top_item"><a href="https://itamityt.ru/login.html">Вход</a></li>
+    <li class="menu-top_item"><a href="https://itamityt.ru/register.html">Регистрация</a></li>
+    <li class="menu-top_item"><a href="https://itamityt.ru/userhome.html">Админка профиля</a></li>
+    </ul>
+  </header>
+ 
+<main>
+ <div class="container">
+  <h2>Вход</h2>
+
+  <form id="loginForm">
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Пароль" required>
+
+    <button type="submit">Войти</button>
+  </form>
+
+  <p id="message"></p>
+</div>
+</main>
+
+<footer class="container">
+    <p>© 2026 itamityt.ru</p>
+  </footer>
+<script src="js/login.js"></script>
+</body>
+</html>
+
