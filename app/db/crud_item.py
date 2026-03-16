@@ -27,6 +27,9 @@ def generate_link_id(length=8):
 #     await db.commit()
 #     await db.refresh(db_item)
 #     return db_item
+import httpx
+from sqlalchemy import select
+
 async def create_item(db: AsyncSession, name: str, description: str, owner_user_id: int):
     """Создаёт Item и привязывает к пользователю"""
     if owner_user_id is None:
@@ -45,9 +48,27 @@ async def create_item(db: AsyncSession, name: str, description: str, owner_user_
         link_id=link_id,
         owner_user_id=owner_user_id
     )
+
     db.add(db_item)
     await db.commit()
     await db.refresh(db_item)
+
+    # 👇 отправляем ссылку в redirect сервис
+    try:
+        async with httpx.AsyncClient() as client:
+            await client.post(
+                "http://redirect:8000/links",
+                json={
+                    "link_id": db_item.link_id,
+                    "original_url": db_item.description,
+                    "owner_user_id": db_item.owner_user_id
+                },
+                timeout=5
+            )
+    except Exception as e:
+        # редирект сервис может быть временно недоступен
+        print("Redirect service error:", e)
+
     return db_item
 
 async def get_all_items(db: AsyncSession):
