@@ -10,6 +10,8 @@ from fastapi import status
 
 from pydantic import BaseModel
 
+from app.db.crud_user import delete_user_by_id
+
 router = APIRouter(prefix="/users", tags=["users"])
 
 
@@ -56,11 +58,15 @@ async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)):
     await db.delete(user)
     await db.commit()
 
-@router.delete("/delete/me")
-async def delete_current_user(
-    current_user: User = Depends(get_current_user),
+
+
+@router.delete("/delete/me", status_code=204)
+async def delete_me(
+    current_user = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
-    await db.delete(current_user)
-    await db.commit()
-    return {"detail": "User deleted"}
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    await delete_user_by_id(db, current_user.id)
+    return
