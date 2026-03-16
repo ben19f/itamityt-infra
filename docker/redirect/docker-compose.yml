@@ -1,9 +1,9 @@
 version: '3.3'
 
 services:
-  web:
+  redirect:
     build:
-      context: ../../  # текущая директория с Dockerfile
+      context: ../../
       dockerfile: docker/redirect/Dockerfile
     container_name: itamityt_redirect
     restart: always
@@ -11,4 +11,4 @@ services:
       - .env
     ports:
       - "8200:8200"
-    command: uvicorn main:app --reload  --host 0.0.0.0 --port 8200
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8200
