@@ -6,8 +6,8 @@ from crud import get_link, log_click, create_link
 from database import get_db
 from schemas import LinkCreate
 
-router = APIRouter()
-
+# router = APIRouter()
+router = APIRouter(prefix="/rserv")
 
 @router.post("/links")
 async def create_link_endpoint(
