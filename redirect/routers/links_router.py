@@ -1,22 +1,17 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException, Request, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from crud import get_link, create_link
-from schemas import LinkCreate, LinkOut
-from main import get_db
+from crud import get_link, log_click
+from database import get_db  # теперь импорт из database.py, без цикла
 
-links_router = APIRouter(prefix="/links", tags=["links"])
+router = APIRouter()
 
-@links_router.post("/", response_model=LinkOut, status_code=201)
-async def add_link(link: LinkCreate, db: AsyncSession = Depends(get_db)):
-    existing = await get_link(db, link.link_id)
-    if existing:
-        raise HTTPException(status_code=400, detail="Link already exists")
+@router.get("/r/{link_id}")
+async def redirect_link(link_id: str, request: Request, db: AsyncSession = Depends(get_db)):
+    link = await get_link(db, link_id)
+    if not link:
+        raise HTTPException(status_code=404, detail="Link not found")
 
-    new_link = await create_link(
-        db,
-        link_id=link.link_id,
-        original_url=link.original_url,
-        owner_user_id=link.owner_user_id
-    )
-    return new_link
+    await log_click(db, link_id, request.client.host, request.headers.get("user-agent"))
+
+    return RedirectResponse(url=link.original_url)
