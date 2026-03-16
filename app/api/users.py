@@ -10,7 +10,7 @@ from fastapi import status
 
 from pydantic import BaseModel
 
-from app.db.crud_user import delete_user_by_id
+from db.crud_user import delete_user_by_id
 
 router = APIRouter(prefix="/users", tags=["users"])
 
