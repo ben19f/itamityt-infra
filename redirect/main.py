@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from models import Base
-from routers.link_router import router as links_router
+from routers.links_router import router as links_router
 from database import engine  # только движок
 from sqlalchemy.ext.asyncio import AsyncSession
 
