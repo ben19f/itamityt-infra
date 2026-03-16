@@ -24,7 +24,7 @@ async def create_link_endpoint(
     return link
 
 
-@router.get("/r/{link_id}")
+@router.get("/{link_id}")
 async def redirect_link(
     link_id: str,
     request: Request,
