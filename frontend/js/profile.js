@@ -6,9 +6,22 @@ if (!token) {
   window.location.href = "/login.html";
 }
 
+// Для дебага: покажем токен в консоли
+console.log("JWT token:", token);
+
 const list = document.getElementById("itemsList");
 const message = document.getElementById("message");
 const deleteBtn = document.getElementById("deleteAccountBtn");
+
+// -------------------------------
+// Вспомогательная функция для заголовков
+// -------------------------------
+function getAuthHeaders() {
+  return {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+  };
+}
 
 // -------------------------------
 // Загрузка всех ссылок
@@ -16,18 +29,19 @@ const deleteBtn = document.getElementById("deleteAccountBtn");
 async function loadItems() {
   try {
     const res = await fetch(`${API_URL}/items/`, {
-      headers: { Authorization: `Bearer ${token}` }
+      method: "GET",
+      headers: getAuthHeaders()
     });
 
     if (!res.ok) {
-      const err = await res.json();
+      const err = await res.json().catch(() => ({}));
       throw new Error(err.detail || "Ошибка загрузки ссылок");
     }
 
     const items = await res.json();
     list.innerHTML = "";
 
-    if (items.length === 0) {
+    if (!items || items.length === 0) {
       list.textContent = "Ссылок пока нет";
       return;
     }
@@ -44,6 +58,7 @@ async function loadItems() {
 
   } catch (err) {
     console.error(err);
+    message.style.color = "red";
     message.textContent = err.message;
   }
 }
@@ -63,15 +78,12 @@ document.getElementById("addItemForm").addEventListener("submit", async (e) => {
   try {
     const res = await fetch(`${API_URL}/items/`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(body)
     });
 
     if (!res.ok) {
-      const err = await res.json();
+      const err = await res.json().catch(() => ({}));
       throw new Error(err.detail || "Ошибка добавления");
     }
 
@@ -93,11 +105,11 @@ async function deleteItem(id) {
   try {
     const res = await fetch(`${API_URL}/items/${id}`, {
       method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` }
+      headers: getAuthHeaders()
     });
 
     if (!res.ok) {
-      const err = await res.json();
+      const err = await res.json().catch(() => ({}));
       throw new Error(err.detail || "Ошибка удаления");
     }
 
@@ -122,29 +134,31 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 // -------------------------------
 // Удаление аккаунта
 // -------------------------------
-deleteBtn.addEventListener("click", async () => {
-  if (!confirm("Вы точно хотите удалить свой аккаунт? Это действие необратимо!")) return;
+if (deleteBtn) {
+  deleteBtn.addEventListener("click", async () => {
+    if (!confirm("Вы точно хотите удалить свой аккаунт? Это действие необратимо!")) return;
 
-  try {
-    const res = await fetch(`${API_URL}/users/delete/me`, {  // эндпоинт на бэке должен позволять удаление текущего пользователя
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    try {
+      const res = await fetch(`${API_URL}/users/delete/me`, {
+        method: "DELETE",
+        headers: getAuthHeaders()
+      });
 
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.detail || "Ошибка удаления аккаунта");
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || "Ошибка удаления аккаунта");
+      }
+
+      localStorage.removeItem("token");
+      alert("Аккаунт удален");
+      window.location.href = "/index.html";
+
+    } catch (err) {
+      message.style.color = "red";
+      message.textContent = err.message;
     }
-
-    localStorage.removeItem("token");
-    alert("Аккаунт удален");
-    window.location.href = "/index.html";
-
-  } catch (err) {
-    message.style.color = "red";
-    message.textContent = err.message;
-  }
-});
+  });
+}
 
 // -------------------------------
 // Автозагрузка
