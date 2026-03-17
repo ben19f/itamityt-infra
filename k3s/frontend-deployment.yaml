@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: ghcr.io/ben19f/itamityt/frontend:latest
+        image: ghcr.io/ben19f/itamityt/frontend:latest  # <- замени на свой
         ports:
         - containerPort: 80
