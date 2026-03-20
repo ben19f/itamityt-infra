@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: itamityt-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: itamityt.ru
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-frontend   # 👈 ЗАМЕНИ НА СВОЙ СЕРВИС
+            port:
+              number: 80                                                          
+
+
