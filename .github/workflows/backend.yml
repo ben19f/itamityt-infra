@@ -1,4 +1,4 @@
-name: Build and Deploy Backend
+name: Build and push Backend
 
 on:
   push:
@@ -7,19 +7,24 @@ on:
 
 jobs:
 
-  deploy:
+  build-and-push:
     runs-on: ubuntu-latest
 #    needs: build
+    permissions:
+      contents: read
+      packages: write
+
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_KEY }}
-          script: |
-            cd itamityt
-            git switch devbackend
-            git pull
-            cd docker/backend
-            docker-compose up -d --build
+
+      - name: Login to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/backend:latest -f docker/backend/Dockerfile .
+      - name: Push image
+        run: |
+          docker push ghcr.io/${{ github.repository }}/frontend:latest
