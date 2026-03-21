@@ -12,7 +12,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: my-frontend   # 👈 ЗАМЕНИ НА СВОЙ СЕРВИС
+            name: frontend   # 👈 ЗАМЕНИ НА СВОЙ СЕРВИС
             port:
               number: 80                                                          
 
