@@ -1,9 +1,9 @@
 version: '3.3'
 
 services:
-  web:
+  redirect:
     build:
-      context: ../../  # текущая директория с Dockerfile
+      context: ../../
       dockerfile: docker/redirect/Dockerfile
     container_name: itamityt_redirect
     restart: always
