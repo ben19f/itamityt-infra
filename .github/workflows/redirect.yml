@@ -1,20 +1,21 @@
-name: Build & Push Frontend (GHCR)
+name: Build and push Redirect
 
 on:
   push:
     branches:
-      - devfrontend
+      - devredirect
 
 jobs:
+
   build-and-push:
     runs-on: ubuntu-latest
-
+#    needs: build
     permissions:
       contents: read
       packages: write
 
-    steps:
 
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -23,10 +24,7 @@ jobs:
 
       - name: Build image
         run: |
-          docker build \
-          -t ghcr.io/${{ github.repository }}/frontend:latest \
-          ./docker/frontend
-
+          docker build -t ghcr.io/${{ github.repository }}/redirect:latest -f docker/redirect/Dockerfile .
       - name: Push image
         run: |
-          docker push ghcr.io/${{ github.repository }}/frontend:latest
+          docker push ghcr.io/${{ github.repository }}/redirect:latest

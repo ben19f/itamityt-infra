@@ -54,6 +54,7 @@ fetch(`${API_URL}/last-users`)
       if (user.items && user.items.length) {
         user.items.forEach(item => {
           const p = document.createElement("p");
+          const redirectUrl = `${REDIRECT_URL}/${item.link_id}`;
           const a = document.createElement("a");
           a.href = `${REDIRECT_URL}/${item.link_id}`; // публичный link_id
           a.textContent = item.name;
