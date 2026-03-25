@@ -81,3 +81,7 @@ sudo k3s kubectl get nodes
 # удаление
 sudo /usr/local/bin/k3s-uninstall.sh
 ыsudo  helm uninstall ingress-nginx -n ingress-nginx
+
+
+# удаление конфига и пода
+sudo kubectl delete -f old-deployment.yaml
