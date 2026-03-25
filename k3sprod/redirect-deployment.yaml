@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redirect
+  namespace: prodspaceita
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redirect
+  template:
+    metadata:
+      labels:
+        app: redirect
+    spec:
+      containers:
+        - name: redirect
+          image: ghcr.io/ben19f/itamityt-redirect/redirect:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: projectsecrets

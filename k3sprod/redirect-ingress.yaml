@@ -1,19 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: itamityt-ingress
+  name: redirect-ingress
+  namespace: prodspaceita
 spec:
   ingressClassName: nginx
   rules:
   - host: itamityt.ru
     http:
       paths:
-      - path: /
+
+      - path: /rserv
         pathType: Prefix
         backend:
           service:
-            name: frontend   # 👈 ЗАМЕНИ НА СВОЙ СЕРВИС
+            name: redirect-service
             port:
-              number: 80                                                          
-
-
+              number: 8000
