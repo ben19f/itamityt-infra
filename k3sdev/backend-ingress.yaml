@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: itamityt.ru
+  - host: dev.itamityt.ru
     http:
       paths:
 

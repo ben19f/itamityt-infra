@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redirect
+  namespace: prodspaceita
 spec:
   replicas: 1
   selector:
@@ -19,4 +20,4 @@ spec:
             - containerPort: 8000
           envFrom:
             - secretRef:
-                name: backend-secret
+                name: projectsecrets
