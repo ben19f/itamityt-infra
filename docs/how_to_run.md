@@ -1,6 +1,6 @@
 
 
-# усстановка helm
+# download helm
 curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
@@ -28,6 +28,15 @@ sudo k3s server   \
     --cluster-cidr 10.42.0.0/16   \
     --service-cidr 10.43.0.0/16
 
+
+# установка ингресс поды
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+    --namespace ingress-nginx --create-namespace \
+    --set controller.replicaCount=1 \
+    --set controller.nodeSelector."kubernetes\.io/hostname"=k3nhost \
+    --set defaultBackend.nodeSelector."kubernetes\.io/hostname"=k3nhost
+
+
 # получение токена для воркеров
 sudo cat /var/lib/rancher/k3s/server/node-token
 
@@ -36,3 +45,39 @@ curl -sfL https://get.k3s.io | K3S_URL=https://YOUR_MASTER_IP:6443 \
 K3S_TOKEN=TOKEN sh -
 
 
+
+# создаем yaml конфигфайлы и применяем их на мастер ноде
+sudo kubectl apply -f ingress.yaml
+
+
+
+
+## работа с подами
+# Список под
+sudo kubectl get pod -o wide
+# Смотри описание pod 
+sudo kubectl describe pod backend-xxxxxxxxxx
+# перезагрузить образ
+sudo kubectl rollout restart deployment/redirect
+sudo kubectl rollout restart deployment/<deployment-name> -n <namespace>
+# зайти в поду
+sudo kubectl exec -it frontend-6b7f7c5f4c-s6xwg -- sh
+
+
+# ингресс поды
+sudo kubectl get pods -A | grep -i ingress
+sudo kubectl get deployments -n ingress-nginx
+sudo kubectl get pods -n ingress-nginx -o wide
+# получить переменные пода
+sudo kubectl exec -it redirect-7496776fc6-q2pfk -- printenv
+# сервисы поды
+sudo kubectl describe svc backend-service
+sudo kubectl get svc -n ingress-nginx
+# получение нод
+sudo kubectl get nodes
+
+sudo k3s kubectl get nodes
+
+# удаление
+sudo /usr/local/bin/k3s-uninstall.sh
+ыsudo  helm uninstall ingress-nginx -n ingress-nginx
