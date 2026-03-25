@@ -1,0 +1,41 @@
+# Этот файл для истории он уже удален
+apiVersion: networking.k8s.io/v1
+
+kind: Ingress
+metadata:
+  name: itamityt-ingress
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: itamityt.ru
+    http:
+      paths:
+
+      # API (СНАЧАЛА)
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-service
+            port:
+              number: 8100
+
+      # Redirect (ПОТОМ)
+      - path: /rserv(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: redirect-service
+            port:
+              number: 8200
+
+      # Frontend (ПОСЛЕДНИЙ!)
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
