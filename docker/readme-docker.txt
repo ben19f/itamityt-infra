@@ -1,1 +1,0 @@
-├─ docker/        # Dockerfile и docker-compose для локальной разработки
