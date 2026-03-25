@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: ghcr.io/ben19f/itamityt/frontend:latest
+        image: ghcr.io/ben19f/itamityt-frontend/frontend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80

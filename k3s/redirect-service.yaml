@@ -6,6 +6,6 @@ spec:
   selector:
     app: redirect
   ports:
-    - port: 8200
-      targetPort: 8200
+    - port: 8000
+      targetPort: 8000
   type: ClusterIP

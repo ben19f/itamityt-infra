@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
         - name: redirect
-          image: ghcr.io/ben19f/itamityt/redirect:latest
+          image: ghcr.io/ben19f/itamityt-redirect/redirect:latest
           ports:
-            - containerPort: 8200
+            - containerPort: 8000
           envFrom:
             - secretRef:
                 name: backend-secret
