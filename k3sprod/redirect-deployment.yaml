@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: redirect
-          image: ghcr.io/ben19f/itamityt-redirect/redirect:latest
+          image: ghcr.io/ben19f/itamityt-redirect/redirect:v0.0.1
           ports:
             - containerPort: 8000
           envFrom:
