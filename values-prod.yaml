@@ -1,1 +1,15 @@
-тут будут значения для прода
+namespace: prodspaceita
+
+backend:
+  image: ghcr.io/ben19f/itamityt-backend/backend:v0.0.1
+  replicas: 1
+
+frontend:
+  image: ghcr.io/ben19f/itamityt-frontend/frontend:v0.2.0
+  replicas: 1
+
+redirect:
+  image: ghcr.io/ben19f/itamityt-redirect/redirect:v0.1.0
+  replicas: 1
+
+host: itamityt.ru

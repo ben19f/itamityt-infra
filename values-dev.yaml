@@ -1,1 +1,15 @@
-тут бкдут значения для дев
+namespace: devspaceita
+
+backend:
+  image: ghcr.io/ben19f/itamityt-backend/backend:latest
+  replicas: 1
+
+frontend:
+  image: ghcr.io/ben19f/itamityt-frontend/frontend:latest
+  replicas: 1
+
+redirect:
+  image: ghcr.io/ben19f/itamityt-redirect/redirect:latest
+  replicas: 1
+
+host: dev.itamityt.ru
