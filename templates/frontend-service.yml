@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend
-  namespace: prodspaceita
+  namespace: {{ .Values.namespace }}
 spec:
   selector:
     app: frontend

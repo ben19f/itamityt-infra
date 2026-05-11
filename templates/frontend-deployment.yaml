@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: prodspaceita
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: ghcr.io/ben19f/itamityt-frontend/frontend:v0.2.0
+        image: {{ .Values.frontend.image }}
         imagePullPolicy: Always
         ports:
         - containerPort: 80
