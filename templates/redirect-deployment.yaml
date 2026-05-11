@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redirect
-  namespace: prodspaceita
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: redirect
-          image: ghcr.io/ben19f/itamityt-redirect/redirect:v0.1.0
+          image: {{ .Values.redirect.image }}
           ports:
             - containerPort: 8000
           envFrom:
