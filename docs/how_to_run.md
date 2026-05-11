@@ -85,3 +85,8 @@ sudo /usr/local/bin/k3s-uninstall.sh
 
 # удаление конфига и пода
 sudo kubectl delete -f old-deployment.yaml
+=================
+
+
+
+я удалил файл создания неймспейсов он в папке с секретами
