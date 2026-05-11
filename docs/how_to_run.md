@@ -90,3 +90,18 @@ sudo kubectl delete -f old-deployment.yaml
 
 
 я удалил файл создания неймспейсов он в папке с секретами
+
+
+ansibleadmin@k8s-master1:~/itamityt-infra$ kubectl apply -f ~/itamityt-secrets/.
+namespace/devspaceita created
+namespace/prodspaceita created
+secret/projectsecrets created
+Error from server (NotFound): error when creating "/home/ansibleadmin/itamityt-secrets/dev-secrets.yaml": namespaces "devspaceita" not found
+ansibleadmin@k8s-master1:~/itamityt-infra$ kubectl apply -f ~/itamityt-secrets/.
+secret/projectsecrets created
+namespace/devspaceita unchanged
+namespace/prodspaceita unchanged
+secret/projectsecrets configured
+
+~/itamityt-secrets
+helm install dev-release ./helm/itamityt -f values-dev.yaml
