@@ -1,4 +1,7 @@
 namespace: devspaceita
+nodeSelector:
+  environment: dev
+
 
 backend:
   image: ghcr.io/ben19f/itamityt-backend/backend:latest

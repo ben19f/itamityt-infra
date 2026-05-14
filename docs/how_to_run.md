@@ -104,4 +104,12 @@ namespace/prodspaceita unchanged
 secret/projectsecrets configured
 
 ~/itamityt-secrets
+
+
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+  --namespace ingress \
+  --create-namespace
+
+
+  
 helm install dev-release ./helm/itamityt -f values-dev.yaml

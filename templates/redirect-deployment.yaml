@@ -13,6 +13,9 @@ spec:
       labels:
         app: redirect
     spec:
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+
       containers:
         - name: redirect
           image: {{ .Values.redirect.image }}

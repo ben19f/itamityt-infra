@@ -1,4 +1,6 @@
 namespace: prodspaceita
+nodeSelector:
+  environment: prod
 
 backend:
   image: ghcr.io/ben19f/itamityt-backend/backend:v0.0.1
