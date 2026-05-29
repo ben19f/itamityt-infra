@@ -8,7 +8,7 @@ backend:
   replicas: 1
 
 frontend:
-  image: ghcr.io/ben19f/itamityt-frontend/frontend:latest
+  image: 192.168.96.116:5000/app/frontend:latest
   replicas: 1
 
 redirect:
