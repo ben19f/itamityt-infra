@@ -3,25 +3,19 @@ kind: Deployment
 metadata:
   name: frontend
   namespace: {{ .Values.namespace }}
-
 spec:
   replicas: 1
-
   selector:
     matchLabels:
       app: frontend
-
   template:
     metadata:
       labels:
         app: frontend
-
     spec:
       imagePullSecrets:
         - name: regcred
-
       nodeSelector: {{ toYaml .Values.nodeSelector | indent 8 }}
-
       containers:
         - name: frontend
           image: {{ .Values.frontend.image }}
