@@ -5,7 +5,7 @@ backend:
   image: ghcr.io/ben19f/itamityt-backend/backend:latest
   replicas: 1
 frontend:
-  image: '192.168.96.116:5000/app/frontend:'
+  image: '192.168.96.116:5000/app/frontend:v0.2.6'
   replicas: 1
 redirect:
   image: ghcr.io/ben19f/itamityt-redirect/redirect:latest
