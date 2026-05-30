@@ -14,6 +14,8 @@ spec:
       labels:
         app: backend
     spec:
+      imagePullSecrets:
+        - name: regcred
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
 
