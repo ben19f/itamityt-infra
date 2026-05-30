@@ -8,6 +8,6 @@ frontend:
   image: '192.168.96.116:5000/app/redirect:v0.1.2'
   replicas: 1
 redirect:
-  image: ghcr.io/ben19f/itamityt-redirect/redirect:latest
+  image: 192.168.96.116:5000/app/redirect:v0.1.3
   replicas: 1
 host: dev.itamityt.ru
