@@ -2,7 +2,7 @@ namespace: devspaceita
 nodeSelector:
   environment: dev
 backend:
-  image: '192.168.96.116:5000/app/backend:'
+  image: '192.168.96.116:5000/app/backend:v0.0.3'
   replicas: 1
 frontend:
   image: '192.168.96.116:5000/app/frontend:v0.2.7'
