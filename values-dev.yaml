@@ -2,12 +2,12 @@ namespace: devspaceita
 nodeSelector:
   environment: dev
 backend:
-  image: '192.168.96.116:5000/app/backend:v0.0.3'
+  image: '192.168.96.116:5000/app/backend:latest'
   replicas: 1
 frontend:
-  image: '192.168.96.116:5000/app/frontend:v0.2.10'
+  image: '192.168.96.116:5000/app/frontend:latest'
   replicas: 1
 redirect:
-  image: 192.168.96.116:5000/app/redirect:v0.1.3
+  image: 192.168.96.116:5000/app/redirect:latest
   replicas: 1
-host: dev.itamityt.ru
+host: itamityt.ru
