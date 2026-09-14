@@ -10,4 +10,4 @@ frontend:
 redirect:
   image: 192.168.96.116:5000/itamityt/redirect:latest
   replicas: 1
-host: itamityt.ru
+host: dev.itamityt.ru
