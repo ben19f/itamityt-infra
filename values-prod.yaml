@@ -6,7 +6,7 @@ backend:
   image: 192.168.96.116:5000/itamityt/backend:v0.0.5
   replicas: 1
 frontend:
-  image: 192.168.96.116:5000/itamityt/frontend:v0.2.18
+  image: 192.168.96.116:5000/itamityt/frontend:v0.3.0
   replicas: 1
 redirect:
   image: 192.168.96.116:5000/itamityt/redirect:v0.1.5
