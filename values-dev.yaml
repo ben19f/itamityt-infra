@@ -2,7 +2,7 @@ namespace: devspaceita
 nodeSelector:
   environment: dev
 backend:
-  image: 192.168.96.116:5000/itamityt/backend:v0.1.0
+  image: 192.168.96.116:5000/itamityt/backend:v0.1.1
   replicas: 1
 frontend:
   image: 192.168.96.116:5000/itamityt/frontend:latest
