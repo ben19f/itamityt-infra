@@ -1,0 +1,14 @@
+namespace: testspaceita
+environment: dev
+backend:
+  image: 192.168.96.116:5000/itamityt/backend:latest
+  replicas: 1
+frontend:
+  image: 192.168.96.116:5000/itamityt/frontend:latest
+  replicas: 1
+redirect:
+  image: 192.168.96.116:5000/itamityt/redirect:v0.1.5
+  replicas: 1
+# локальный домен
+host: testdomain.ru
+metrica_status: "false"
