@@ -1,6 +1,6 @@
 namespace: prodspaceita
-nodeSelector:
-  environment: prod
+
+environment: prod
 
 backend:
   image: 192.168.96.116:5000/itamityt/backend:v0.1.1
@@ -13,3 +13,5 @@ redirect:
   replicas: 1
 
 host: itamityt.ru
+
+metrica_status: "true"
