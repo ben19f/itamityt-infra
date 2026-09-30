@@ -18,6 +18,10 @@ spec:
         app: redirect
 
       annotations:
+              vault.hashicorp.com/agent-requests-cpu: "50m"
+              vault.hashicorp.com/agent-requests-mem: "32Mi"
+              vault.hashicorp.com/agent-limits-cpu: "100m"
+              vault.hashicorp.com/agent-limits-mem: "64Mi"
               vault.hashicorp.com/agent-inject: "true"
               vault.hashicorp.com/agent-pre-populate-only: "true"
 
@@ -37,7 +41,7 @@ spec:
 
     spec:
       serviceAccountName: itamityt
-      
+
       imagePullSecrets:
         - name: regcred
 
