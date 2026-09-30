@@ -15,8 +15,7 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
-#       nodeSelector:
-# {{ toYaml .Values.nodeSelector | indent 8 }}
+
 
       containers:
         - name: redirect
