@@ -23,5 +23,5 @@ spec:
           ports:
             - containerPort: 8000
           envFrom:
-            - secretRef:
-                name: projectsecrets
+            - configMapRef:
+                name: projectconfigs
