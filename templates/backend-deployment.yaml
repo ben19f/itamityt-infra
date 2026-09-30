@@ -28,9 +28,13 @@ spec:
 
         vault.hashicorp.com/agent-inject-template-config: |
           {{`{{- with secret "secret/data/itamityt/`}}{{ .Values.environment }}{{`" -}}`}}
-          export TEST_VALUE="{{`{{ .Data.data.TEST_VALUE }}`}}"
+          export DATABASE_URL="{{`{{ .Data.data.DATABASE_URL }}`}}"
+          export SECRET_KEY="{{`{{ .Data.data.SECRET_KEY }}`}}"
+          export S3_ACCESS_KEY="{{`{{ .Data.data.S3_ACCESS_KEY }}`}}"
+          export S3_SECRET_KEY="{{`{{ .Data.data.S3_SECRET_KEY }}`}}"
+          export SMTP_USERNAME="{{`{{ .Data.data.SMTP_USERNAME }}`}}"
+          export SMTP_PASSWORD="{{`{{ .Data.data.SMTP_PASSWORD }}`}}"
           {{`{{- end }}`}}
-
     spec:
       serviceAccountName: itamityt
 
@@ -54,7 +58,6 @@ spec:
       - containerPort: 8000
 
     envFrom:
-      - secretRef:
-          name: projectsecrets
+
       - configMapRef:
           name: projectconfigs
