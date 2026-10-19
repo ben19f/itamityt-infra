@@ -3,10 +3,10 @@ namespace: prodspaceita
 environment: prod
 
 backend:
-  image: 192.168.96.116:5000/itamityt/backend:v0.1.1
+  image: 192.168.96.116:5000/itamityt/backend:v0.2.0
   replicas: 1
 frontend:
-  image: 192.168.96.116:5000/itamityt/frontend:v0.3.4
+  image: 192.168.96.116:5000/itamityt/frontend:v0.4.0
   replicas: 1
 redirect:
   image: 192.168.96.116:5000/itamityt/redirect:v0.1.5
