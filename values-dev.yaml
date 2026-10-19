@@ -9,7 +9,7 @@ frontend:
   image: 192.168.96.116:5000/itamityt/frontend:latest
   replicas: 1
 redirect:
-  image: 192.168.96.116:5000/itamityt/redirect:v0.1.5
+  image: 192.168.96.116:5000/itamityt/redirect:latest
   replicas: 1
 host: dev.itamityt.ru
 metrica_status: "false"
