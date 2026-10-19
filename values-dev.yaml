@@ -3,10 +3,10 @@ namespace: devspaceita
 environment: dev
 
 backend:
-  image: 192.168.96.116:5000/itamityt/backend:v0.1.1
+  image: 192.168.96.116:5000/itamityt/backend:latest
   replicas: 1
 frontend:
-  image: 192.168.96.116:5000/itamityt/frontend:v0.3.5
+  image: 192.168.96.116:5000/itamityt/frontend:latest
   replicas: 1
 redirect:
   image: 192.168.96.116:5000/itamityt/redirect:v0.1.5
